@@ -19,6 +19,10 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
+
+  ul, ul {
+    list-style: none;
+  }
 `
 
 export default GlobalStyle
