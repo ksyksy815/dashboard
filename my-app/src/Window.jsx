@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import TodoList from './components/todoList/TodoList'
+import DayList from './components/dayList/DayList'
 
 const WindowStyle = styled.div`
   width: 100vw;
@@ -9,12 +9,27 @@ const WindowStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  #container {
+    width: 80%;
+    min-height: 80%;
+    border: 1px solid #fff;
+    display: flex;
+    justify-content: space-between;
+  }
 `
+const daysInWeek = ['Time', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export default function Window() {
+
   return (
     <WindowStyle>
-      <TodoList />
+      <div id="container">
+
+        {
+          daysInWeek.map(day => <DayList key={day} day={day} />)
+        }
+      </div>
     </WindowStyle>
   )
 }
