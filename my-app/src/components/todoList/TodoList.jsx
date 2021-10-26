@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import TodoItem from './TodoItem'
+import TodoForm from './TodoForm'
 
 const StyledTodoList = styled.div`
   border: 1px solid #fff;
@@ -36,8 +37,13 @@ const StyledTodoList = styled.div`
 
 export default function TodoList() {
   const [todos, setTodos] = useState([])
+  const [formOpen, setFormOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const URL = 'http://jsonplaceholder.typicode.com/todos'
+
+  const handleClick = () => {
+    setFormOpen(true)
+  }
 
   useEffect(() => {
     axios(`${URL}?_start=0&_limit=5`)
@@ -60,7 +66,11 @@ export default function TodoList() {
               todos.map(todo => <TodoItem key={todo.id} content={todo.title} completed={todo.completed} />)
             }
           </ul>
-          <button id="add-todo-button">+</button>
+          {
+            formOpen ? <TodoForm />
+            : <button id="add-todo-button" onClick={handleClick}>+</button>
+          }
+          
         </>
       }
     </StyledTodoList>
