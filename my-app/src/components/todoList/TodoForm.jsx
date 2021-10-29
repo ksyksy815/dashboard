@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux';
-import { add, newTodoContent } from './todoSlice'
+import { add, selectNewTodo } from './todoSlice'
 
 const StyledTodoForm = styled.form`
   width: 100%;
@@ -36,7 +36,7 @@ const StyledTodoForm = styled.form`
 `
 
 export default function TodoForm() {
-  const todos = useSelector(newTodoContent)
+  const todos = useSelector(selectNewTodo)
   const dispatch = useDispatch()
   
   const [content, setContent] = useState('')

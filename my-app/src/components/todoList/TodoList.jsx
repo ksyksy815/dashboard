@@ -3,6 +3,8 @@ import axios from 'axios'
 import styled from 'styled-components'
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
+import { useSelector, useDispatch } from 'react-redux'
+import { load, selectTodos } from './todoSlice'
 
 const StyledTodoList = styled.div`
   border: 1px solid #fff;
@@ -36,22 +38,22 @@ const StyledTodoList = styled.div`
 `
 
 export default function TodoList() {
+  const todo = useSelector(selectTodos)
+  const dispatch = useDispatch()
   const [todos, setTodos] = useState([])
   const [formOpen, setFormOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const URL = 'http://jsonplaceholder.typicode.com/todos'
 
   const handleClick = () => {
     setFormOpen(true)
   }
 
   useEffect(() => {
-    axios(`${URL}?_start=0&_limit=5`)
-    .then(res => {
-      setTodos(res.data)
-      setIsLoading(false)
-    })
-    .catch(err => console.log(err))
+    if (todos.length === 0) {
+      dispatch(load())
+      // setTodos(todo)
+      // setIsLoading(false)
+    }
   })
 
   return (
